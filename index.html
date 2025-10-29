@@ -1,52 +1,127 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Zhe Heng | Software Engineer</title>
+  <meta name="description"
+    content="Zhe Heng — Full‑Stack Software Engineer. Projects, skills, experience, and contact." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
   <script defer src="script.js"></script>
 </head>
 
 <body>
-  <div id="background"></div>
+  <!-- Dynamic gradient background -->
+  <div id="background" aria-hidden="true"></div>
 
-  <!-- Header -->
-  <header class="glass-header">
-    <h1>👋 Hi, I'm <span>Zhe Heng</span></h1>
-    <p>🚀 Aspiring Software Engineer | Full-Stack Developer | AI & Cloud Enthusiast</p>
+  <!-- SVG filter for iOS "liquid/gooey" effect -->
+  <svg class="visually-hidden">
+    <defs>
+      <filter id="goo">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+        <!-- Lift alpha to create the liquid merge look -->
+        <feColorMatrix in="blur" mode="matrix" values="
+          1 0 0 0 0
+          0 1 0 0 0
+          0 0 1 0 0
+          0 0 0 25 -15" result="goo" />
+        <feBlend in="SourceGraphic" in2="goo" />
+      </filter>
+    </defs>
+  </svg>
+
+  <!-- Header / Hero -->
+  <header class="glass-header container">
+    <nav class="topnav">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#experience">Experience</a>
+      <a href="#education">Education</a>
+      <a href="#contact">Contact</a>
+      <button id="themeToggle" aria-label="Toggle theme">🌓</button>
+    </nav>
+
+    <div class="hero">
+      <div class="hero-text tilt">
+        <h1>👋 Hi, I'm <span>Zhe Heng</span></h1>
+        <p>🚀 Aspiring Software Engineer | Full‑Stack Developer | AI & Cloud Enthusiast</p>
+        <div class="cta">
+          <a href="mailto:henryyzh0309@gmail.com" class="button primary">📩 Contact Me</a>
+          <a href="https://drive.google.com/file/d/1_YpoFNdwLFKetnLy71RLVpf7CDVjwgjb/view?usp=sharing" target="_blank"
+            class="button">📄 View Resume</a>
+        </div>
+      </div>
+
+      <!-- iOS-style liquid orb -->
+      <div class="liquid-orb tilt" aria-hidden="true">
+        <div class="liquid" id="liquid" filter-content="goo">
+          <!-- Drops are animated in JS -->
+          <div class="drop"></div>
+          <div class="drop"></div>
+          <div class="drop"></div>
+          <div class="drop"></div>
+          <div class="drop"></div>
+        </div>
+      </div>
+    </div>
   </header>
 
   <!-- About -->
-  <section id="about" class="glass-card">
+  <section id="about" class="glass-card container reveal">
     <h2>🧠 About Me</h2>
     <p>
-      I’m a Software Engineering student at TARUMT and a passionate Full-Stack Developer with hands-on experience
-      in <strong>Node.js, React.js, Spring Boot, and AWS</strong>.
-      I love building scalable backend systems and user-friendly interfaces.
-    </p>
-    <p>
-      <a href="mailto:henryyzh0309@gmail.com" class="button">📩 Contact Me</a>
-      <a href="https://drive.google.com/file/d/1_YpoFNdwLFKetnLy71RLVpf7CDVjwgjb/view?usp=sharing" target="_blank" class="button">📄 View Resume</a>
+      I’m a Software Engineering student at TARUMT and a passionate Full‑Stack Developer with hands‑on experience in
+      <strong>Node.js, React.js, Spring Boot, and AWS</strong>. I love building scalable backend systems and
+      user‑friendly
+      interfaces.
     </p>
   </section>
 
   <!-- Skills -->
-  <section id="skills" class="glass-card">
+  <section id="skills" class="glass-card container reveal">
     <h2>🛠️ Skills & Tools</h2>
     <div class="skills-grid">
       <span>Java</span><span>Spring Boot</span><span>Node.js</span><span>React</span>
       <span>MySQL</span><span>MongoDB</span><span>AWS</span><span>Docker</span>
-      <span>Python</span><span>Scikit-learn</span><span>Git</span><span>Flutter</span>
+      <span>Python</span><span>Scikit‑learn</span><span>Git</span><span>Flutter</span>
+    </div>
+    <div class="skill-notes">Clean architecture • REST/JSON • CI/CD • Cloud basics (S3/EC2) • Unit & Integration Tests
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects" class="glass-card container reveal">
+    <h2>🧩 Featured Projects</h2>
+    <div class="projects-grid">
+      <article class="project tilt">
+        <h3>StallSync — Canteen Management</h3>
+        <p>Full‑stack system (React + Node + MySQL) with modules for orders, inventory, rewards, and analytics.</p>
+        <div class="tags"><span>React</span><span>Node.js</span><span>MySQL</span></div>
+      </article>
+      <article class="project tilt">
+        <h3>Invento - Inventory Management System</h3>
+        <p>Full‑stack system (Springboot + React + MySQL) with modules for transactions, users, products, and more</p>
+        <div class="tags"><span>SpringBoot</span><span>React</span></div>
+      </article>
+      <article class="project tilt">
+        <h3>Machine Learning (RL, Forecast, recommendation)</h3>
+        <p>Machine Learning features with Python backend, deployed to AWS using PM2.</p>
+        <div class="tags"><span>Python</span><span>RL</span><span>AWS</span></div>
+      </article>
     </div>
   </section>
 
   <!-- Experience -->
-  <section id="experience" class="glass-card">
+  <section id="experience" class="glass-card container reveal">
     <h2>💼 Experience</h2>
     <div class="timeline">
       <div class="job">
-        <h3>Full-Stack Developer | 33Digitec Solution</h3>
+        <h3>Full‑Stack Developer | 33Digitec Solution</h3>
         <p>Mar 2023 – Mar 2025 | Petaling Jaya, KL</p>
         <ul>
           <li>Developed RESTful APIs using Node.js and Express.</li>
@@ -65,27 +140,79 @@
     </div>
   </section>
 
+  <!-- Education & Certs -->
+  <section id="education" class="glass-card container reveal">
+    <h2>🎓 Education & Certifications</h2>
+    <div class="two-col">
+      <div>
+        <h3>Tunku Abdul Rahman University of Management & Technology (TARUMT)</h3>
+        <p>Bachelor of Computer Science (Software Engineering)</p>
+        <ul>
+          <li>President’s List (×5)</li>
+          <li>Soft Skill Competency Gold Award</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Certifications</h3>
+        <ul>
+          <li>AWS Cloud Beginner</li>
+          <li>Foundation in Computing</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section id="services" class="glass-card container reveal">
+    <h2>🧰 What I Do</h2>
+    <div class="services-grid">
+      <div class="service tilt">
+        <h3>Full‑Stack Apps</h3>
+        <p>Design & build RESTful backends, component‑based frontends, and SQL/NoSQL data layers.</p>
+      </div>
+      <div class="service tilt">
+        <h3>APIs & Integrations</h3>
+        <p>Auth, webhooks, 3rd‑party SDKs, and robust error handling with logging & metrics.</p>
+      </div>
+      <div class="service tilt">
+        <h3>Cloud & DevOps</h3>
+        <p>Containerization, basic CI/CD, and cloud deployments with sensible monitoring.</p>
+      </div>
+    </div>
+  </section>
+
   <!-- Achievements -->
-  <section id="achievements" class="glass-card">
+  <section id="achievements" class="glass-card container reveal">
     <h2>🏆 Achievements</h2>
-    <ul>
+    <ul class="achievements-list">
       <li>🎓 TARUMT Bachelor’s Scholarship Recipient</li>
-      <li>🏅 President’s List (x5)</li>
+      <li>🏅 President’s List (×5)</li>
       <li>🥇 Soft Skill Competency Gold Award</li>
-      <li>🌏 Hackathon & Exchange Participant (Vietnam, China, U.S.)</li>
+      <li>🌏 Hackathon & Student Exchange Participant (Vietnam, China, U.S.)</li>
     </ul>
   </section>
 
   <!-- Contact -->
-  <footer class="glass-footer">
+  <footer id="contact" class="glass-footer container reveal">
     <h2>🤝 Connect with Me</h2>
     <div class="socials">
-      <a href="https://github.com/zhzhhyzh" target="_blank"><img src="assets/icons/github.svg" alt="GitHub"></a>
-      <a href="https://linkedin.com/in/zhzhhyzh" target="_blank"><img src="assets/icons/linkedin.svg" alt="LinkedIn"></a>
-      <a href="https://leetcode.com/zhzhhyzh" target="_blank"><img src="assets/icons/leetcode.svg" alt="LeetCode"></a>
-      <a href="mailto:henryyzh0309@gmail.com"><img src="assets/icons/email.svg" alt="Email"></a>
+      <a href="https://github.com/zhzhhyzh" target="_blank" aria-label="GitHub"><img src="assets/icons/github.svg"
+          alt="GitHub"></a>
+      <a href="https://linkedin.com/in/zhzhhyzh" target="_blank" aria-label="LinkedIn"><img
+          src="assets/icons/linkedin.svg" alt="LinkedIn"></a>
+      <a href="https://leetcode.com/zhzhhyzh" target="_blank" aria-label="LeetCode"><img src="assets/icons/leetcode.svg"
+          alt="LeetCode"></a>
+      <a href="mailto:henryyzh0309@gmail.com" aria-label="Email"><img src="assets/icons/email.svg" alt="Email"></a>
     </div>
-    <p>© 2025 Zhe Heng — Built with 💙 and Liquid Glass Design</p>
+
+    <form class="contact-form" action="https://formspree.io/f/mwkggbna" method="POST">
+      <input name="name" placeholder="Your name" required />
+      <input name="email" type="email" placeholder="Your email" required />
+      <textarea name="message" placeholder="Say hello 👋" rows="4" required></textarea>
+      <button class="button primary" type="submit">Send</button>
+    </form>
+    <p class="copyright">© <span id="year"></span> Zhe Heng — Built with Liquid Glass Design</p>
   </footer>
 </body>
+
 </html>
