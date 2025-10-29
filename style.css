@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  color: #fff;
+  background: linear-gradient(120deg, #1e1f25, #121318);
+  overflow-x: hidden;
+}
+
+/* Background with floating gradient (Sky, Halo, Dusk themes) */
+#background {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: radial-gradient(circle at 20% 30%, #4f9cff33, transparent 50%),
+              radial-gradient(circle at 80% 70%, #ff66c433, transparent 50%);
+  z-index: -1;
+  animation: moveBackground 15s infinite alternate ease-in-out;
+}
+
+@keyframes moveBackground {
+  from { background-position: 0 0, 100% 100%; }
+  to { background-position: 100% 50%, 0 50%; }
+}
+
+/* Glass effect cards */
+.glass-card {
+  backdrop-filter: blur(15px) saturate(180%);
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  margin: 2rem auto;
+  padding: 2rem;
+  width: 85%;
+  max-width: 900px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.glass-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Header */
+.glass-header {
+  text-align: center;
+  margin-top: 3rem;
+  color: #e3e9ff;
+}
+
+.glass-header span {
+  color: #64b5ff;
+}
+
+/* Buttons */
+.button {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.6rem 1.2rem;
+  color: #fff;
+  background: rgba(100, 181, 255, 0.3);
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.button:hover {
+  background: rgba(100, 181, 255, 0.6);
+}
+
+/* Skills */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 0.5rem;
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.skills-grid span {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 0.5rem 0.8rem;
+  transition: 0.3s;
+}
+
+.skills-grid span:hover {
+  background: rgba(100, 181, 255, 0.3);
+}
+
+/* Timeline */
+.timeline .job {
+  margin-bottom: 1.5rem;
+}
+
+.timeline h3 {
+  color: #64b5ff;
+}
+
+/* Footer */
+.glass-footer {
+  text-align: center;
+  margin: 3rem 0;
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 1.5rem;
+  border-radius: 15px;
+}
+
+.socials img {
+  width: 40px;
+  margin: 0.5rem;
+  filter: brightness(0) invert(1);
+  transition: transform 0.3s;
+}
+
+.socials img:hover {
+  transform: scale(1.2);
+}
