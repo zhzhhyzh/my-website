@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Zhe Heng | Software Engineer</title>
-  <meta name="description" content="Zhe Heng — Full‑Stack Software Engineer. Projects, skills, experience, GitHub stats, and contact." />
+  <meta name="description"
+    content="Zhe Heng — Full‑Stack Software Engineer. Projects, skills, experience, GitHub stats, and contact." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
@@ -14,7 +16,7 @@
 
 <body>
   <!-- Cursor bubble -->
-<!-- <div id="cursor-bubble"></div> -->
+  <!-- <div id="cursor-bubble"></div> -->
 
   <!-- Scroll progress -->
   <div id="scrollProgress" aria-hidden="true"></div>
@@ -45,6 +47,12 @@
   <header class="glass-header container">
     <nav class="topnav">
       <div class="brand">ZH<span>.</span></div>
+
+      <!-- Mobile hamburger (hidden on desktop via CSS) -->
+      <button id="menuToggle" class="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+        ☰
+      </button>
+
       <div class="links">
         <a href="#about">About</a>
         <a href="#skills">Skills</a>
@@ -54,12 +62,42 @@
         <a href="#education">Education</a>
         <a href="#contact">Contact</a>
       </div>
+
       <div class="actions">
         <a class="button ghost magnet" href="https://github.com/zhzhhyzh" target="_blank">GitHub</a>
-        <a class="button primary magnet" href="https://drive.google.com/file/d/1_YpoFNdwLFKetnLy71RLVpf7CDVjwgjb/view?usp=sharing" target="_blank">Resume</a>
+        <a class="button primary magnet"
+          href="https://drive.google.com/file/d/1_YpoFNdwLFKetnLy71RLVpf7CDVjwgjb/view?usp=sharing"
+          target="_blank">Resume</a>
         <button id="themeToggle" class="magnet" aria-label="Toggle theme">🌓</button>
       </div>
     </nav>
+    <!-- Mobile drawer -->
+    <div id="scrim" hidden></div>
+    <aside id="mobileMenu" aria-hidden="true">
+      <div class="mobile-head">
+        <span class="brand">ZH<span>.</span></span>
+        <button id="menuClose" class="close" aria-label="Close menu">✕</button>
+      </div>
+
+      <nav class="mobile-links">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#experience">Experience</a>
+        <a href="#github">GitHub</a>
+        <a href="#education">Education</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <div class="mobile-cta">
+        <nav>
+          <a href="https://github.com/zhzhhyzh" target="_blank" class="button ghost">GitHub</a>
+          <a href="https://drive.google.com/file/d/1_YpoFNdwLFKetnLy71RLVpf7CDVjwgjb/view?usp=sharing" target="_blank"
+            class="button primary">Resume</a>
+        </nav>
+      </div>
+    </aside>
+
 
     <div class="hero">
       <div class="hero-text tilt">
@@ -67,11 +105,13 @@
         <p>💻 Aspiring Software Engineer | Full‑Stack Developer | AI & Cloud Enthusiast</p>
         <ul class="bullets">
           <li>🔭 Currently building <strong>Java Spring Boot</strong> backend projects</li>
-          <li>💬 Ask me about <strong>React</strong>, <strong>Node.js</strong>, <strong>AWS deployment</strong>, and <strong>web architecture</strong></li>
+          <li>💬 Ask me about <strong>React</strong>, <strong>Node.js</strong>, <strong>AWS deployment</strong>, and
+            <strong>web architecture</strong>
+          </li>
           <li>👨‍💻 Explore my work: <a href="https://github.com/zhzhhyzh" target="_blank">github.com/zhzhhyzh</a></li>
         </ul>
         <div class="cta">
-          <a href="mailto:henryyzh0309@gmail.com" class="button primary magnet">📩 Contact Me</a>
+          <a href="#contact" class="button primary magnet">📩 Contact Me</a>
           <a href="#github" class="button ghost magnet">📊 View GitHub</a>
         </div>
       </div>
@@ -102,11 +142,15 @@
   <section id="about" class="glass-card container reveal">
     <h2>🧠 About Me</h2>
     <p>
-      I’m an aspiring <strong>Software Engineer</strong> pursuing a <strong>Bachelor of Software Engineering (Hons)</strong> at <strong>TARUMT</strong>.
-      I build efficient, scalable, and user‑centric applications with <strong>Node.js</strong>, <strong>React.js</strong>, <strong>Spring Boot</strong>, <strong>MySQL</strong>, and <strong>MongoDB</strong>,
-      and I deploy with <strong>AWS</strong>. I enjoy solving problems and exploring <strong>AI‑driven development</strong>.
+      I’m an aspiring <strong>Software Engineer</strong> pursuing a <strong>Bachelor of Software Engineering
+        (Hons)</strong> at <strong>TARUMT</strong>.
+      I build efficient, scalable, and user‑centric applications with <strong>Node.js</strong>,
+      <strong>React.js</strong>, <strong>Spring Boot</strong>, <strong>MySQL</strong>, and <strong>MongoDB</strong>,
+      and I deploy with <strong>AWS</strong>. I enjoy solving problems and exploring <strong>AI‑driven
+        development</strong>.
     </p>
-    <blockquote class="focus">“Building scalable backend systems and crafting intuitive user experiences with full‑stack technologies.”</blockquote>
+    <blockquote class="focus">“Building scalable backend systems and crafting intuitive user experiences with full‑stack
+      technologies.”</blockquote>
     <ul class="chips">
       <li>Based in Kuala Lumpur</li>
       <li>Open to Internships & Freelance</li>
@@ -128,7 +172,9 @@
     <div class="skill-notes">Clean architecture • REST/JSON • CI/CD • Testing • Cloud deployments</div>
 
     <div class="icon-wall">
-      <img src="https://skillicons.dev/icons?i=java,spring,react,nodejs,express,typescript,js,html,py,cpp,mysql,mongodb,aws,docker,git,postman,figma,flutter,scikitlearn,pandas&perline=10" alt="Skill icons" loading="lazy"/>
+      <img
+        src="https://skillicons.dev/icons?i=java,spring,react,nodejs,express,typescript,js,html,py,cpp,mysql,mongodb,aws,docker,git,postman,figma,flutter,scikitlearn,pandas&perline=10"
+        alt="Skill icons" loading="lazy" />
     </div>
   </section>
 
@@ -171,7 +217,8 @@
         <h3>Project Developer | Persis (Remote)</h3>
         <p>🗓️ Mar 2025 – Sep 2025</p>
         <ul>
-          <li>Built Persis App leveraging RL for personalized analytics (Node.js backend + Python AI + Flutter front‑end).</li>
+          <li>Built Persis App leveraging RL for personalized analytics (Node.js backend + Python AI + Flutter
+            front‑end).</li>
           <li>Deployed on AWS EC2 with PM2 and Git‑based workflows.</li>
         </ul>
       </div>
@@ -183,16 +230,22 @@
     <h2>📊 GitHub Highlights</h2>
     <div class="github-grid">
       <a href="https://github.com/ryo-ma/github-profile-trophy" target="_blank" class="gitcard tilt">
-        <img src="https://github-profile-trophy.vercel.app/?username=zhzhhyzh&theme=tokyonight&margin-w=10&margin-h=10&no-bg=true&no-frame=true" alt="GitHub Trophies" loading="lazy"/>
+        <img
+          src="https://github-profile-trophy.vercel.app/?username=zhzhhyzh&theme=tokyonight&margin-w=10&margin-h=10&no-bg=true&no-frame=true"
+          alt="GitHub Trophies" loading="lazy" />
       </a>
       <div class="gitcard tilt">
-        <img src="https://github-readme-stats.vercel.app/api?username=zhzhhyzh&show_icons=true&theme=tokyonight&hide_border=true" alt="GitHub Stats" loading="lazy"/>
+        <img
+          src="https://github-readme-stats.vercel.app/api?username=zhzhhyzh&show_icons=true&theme=tokyonight&hide_border=true"
+          alt="GitHub Stats" loading="lazy" />
       </div>
       <div class="gitcard tilt">
-        <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=zhzhhyzh&layout=compact&theme=tokyonight&hide_border=true" alt="Top Languages" loading="lazy"/>
+        <img
+          src="https://github-readme-stats.vercel.app/api/top-langs/?username=zhzhhyzh&layout=compact&theme=tokyonight&hide_border=true"
+          alt="Top Languages" loading="lazy" />
       </div>
       <div class="gitcard tilt">
-        <img src="https://github-readme-streak-stats.herokuapp.com/?user=zhzhhyzh" alt="GitHub Streak" loading="lazy"/>
+        <img src="https://github-readme-streak-stats.herokuapp.com/?user=zhzhhyzh" alt="GitHub Streak" loading="lazy" />
       </div>
     </div>
   </section>
@@ -242,9 +295,12 @@
   <footer id="contact" class="glass-footer container reveal">
     <h2>🤝 Connect with Me</h2>
     <div class="socials">
-      <a href="https://github.com/zhzhhyzh" target="_blank" aria-label="GitHub"><img src="assets/icons/github.svg" alt="GitHub"></a>
-      <a href="https://linkedin.com/in/zhzhhyzh" target="_blank" aria-label="LinkedIn"><img src="assets/icons/linkedin.svg" alt="LinkedIn"></a>
-      <a href="https://leetcode.com/zhzhhyzh" target="_blank" aria-label="LeetCode"><img src="assets/icons/leetcode.svg" alt="LeetCode"></a>
+      <a href="https://github.com/zhzhhyzh" target="_blank" aria-label="GitHub"><img src="assets/icons/github.svg"
+          alt="GitHub"></a>
+      <a href="https://linkedin.com/in/zhzhhyzh" target="_blank" aria-label="LinkedIn"><img
+          src="assets/icons/linkedin.svg" alt="LinkedIn"></a>
+      <a href="https://leetcode.com/zhzhhyzh" target="_blank" aria-label="LeetCode"><img src="assets/icons/leetcode.svg"
+          alt="LeetCode"></a>
       <a href="mailto:henryyzh0309@gmail.com" aria-label="Email"><img src="assets/icons/email.svg" alt="Email"></a>
     </div>
 
@@ -257,4 +313,5 @@
     <p class="copyright">© <span id="year"></span> - Yeoh Zhe Heng</p>
   </footer>
 </body>
+
 </html>

@@ -199,3 +199,63 @@ magnets.forEach(el => {
   }
   animate();
 })();
+
+// === Mobile menu open/close ===
+(function mobileMenu(){
+  const menu = document.getElementById('mobileMenu');
+  const scrim = document.getElementById('scrim');
+  const btnOpen = document.getElementById('menuToggle');
+  const btnClose = document.getElementById('menuClose');
+
+  if(!menu || !btnOpen || !scrim) return;
+
+  function open() {
+    menu.dataset.open = "true";
+    scrim.hidden = false;
+    document.body.classList.add('menu-open');
+    btnOpen.setAttribute('aria-expanded', 'true');
+  }
+  function close() {
+    delete menu.dataset.open;
+    scrim.hidden = true;
+    document.body.classList.remove('menu-open');
+    btnOpen.setAttribute('aria-expanded', 'false');
+  }
+
+  btnOpen.addEventListener('click', open);
+  btnClose?.addEventListener('click', close);
+  scrim.addEventListener('click', close);
+
+  // close when a link is tapped
+  menu.querySelectorAll('a[href^="#"], a[target="_blank"]').forEach(a=>{
+    a.addEventListener('click', close);
+  });
+
+  // close with Escape
+  window.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') close(); });
+})();
+
+
+// Close mobile menu whenever we switch to desktop width
+(function () {
+  const mq = window.matchMedia('(min-width: 901px)');
+  const menu = document.getElementById('mobileMenu');
+  const scrim = document.getElementById('scrim');
+  const btnOpen = document.getElementById('menuToggle');
+
+  function closeMenu() {
+    if (!menu) return;
+    delete menu.dataset.open;
+    if (scrim) scrim.hidden = true;
+    document.body.classList.remove('menu-open');
+    if (btnOpen) btnOpen.setAttribute('aria-expanded', 'false');
+  }
+
+  // If page loads already wide, ensure it's closed
+  if (mq.matches) closeMenu();
+
+  // When crossing to desktop, close it
+  mq.addEventListener('change', (e) => {
+    if (e.matches) closeMenu();
+  });
+})();
