@@ -20,6 +20,18 @@ body {
   line-height: 1.6;
 }
 
+#background {
+  transition: background 4s ease-in-out;
+  animation: backgroundMove 30s ease-in-out infinite alternate;
+}
+
+@keyframes backgroundMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+
 /* Global layers */
 #scrollProgress {
   position: fixed; top: 0; left: 0; height: 3px; width: 0%;
@@ -331,4 +343,30 @@ a:hover {
   .hero { grid-template-columns: 1fr; }
   .liquid-orb { order: -1; margin-top: .5rem; }
   .two-col { grid-template-columns: 1fr; }
+}
+
+/* === Cursor Bubble === */
+#cursor-bubble {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #7da6ff, #8b6cff);
+  pointer-events: none;
+  mix-blend-mode: screen;
+  filter: blur(2px) brightness(1.1);
+  transform: translate(-50%, -50%) scale(1);
+  z-index: 9999;
+  transition: transform 0.25s ease-out, opacity 0.3s;
+  opacity: 0.8;
+}
+#cursor-bubble.active {
+  transform: translate(-50%, -50%) scale(1.4);
+  opacity: 1;
+}
+.light #cursor-bubble {
+  background: radial-gradient(circle at 30% 30%, #4f6cff, #6f9cff);
+  mix-blend-mode: multiply;
 }

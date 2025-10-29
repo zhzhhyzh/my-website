@@ -4,12 +4,30 @@ const themes = [
   { name: "Halo", gradient: "radial-gradient(circle at 30% 40%, #c084fc33, transparent 60%), radial-gradient(circle at 70% 60%, #7c4dff33, transparent 60%)" },
   { name: "Dusk", gradient: "radial-gradient(circle at 30% 30%, #ff6e6e33, transparent 60%), radial-gradient(circle at 70% 70%, #ffb34733, transparent 60%)" }
 ];
+// === Smooth Gradient Transition ===
 let currentTheme = 0;
 const bg = document.getElementById("background");
-setInterval(() => {
-  currentTheme = (currentTheme + 1) % themes.length;
+let nextTheme = 1;
+let t = 0; // interpolation factor
+
+function lerpColor(c1, c2, t) {
+  // simple lerp between rgba() colors
+  return `linear-gradient(120deg, ${c1} ${Math.round(t * 100)}%, ${c2} ${Math.round((1 - t) * 100)}%)`;
+}
+
+function animateGradient() {
+  t += 0.0025; // smaller = slower transition
+  if (t >= 1) {
+    t = 0;
+    currentTheme = nextTheme;
+    nextTheme = (nextTheme + 1) % themes.length;
+  }
+  bg.style.transition = "background 4s ease-in-out";
   bg.style.background = themes[currentTheme].gradient;
-}, 10000);
+  requestAnimationFrame(animateGradient);
+}
+animateGradient();
+
 
 // Year
 document.getElementById("year").textContent = new Date().getFullYear();
@@ -143,4 +161,41 @@ magnets.forEach(el => {
   window.addEventListener('scroll', update, {passive:true});
   window.addEventListener('resize', progress);
   update();
+})();
+
+// === Cursor Bubble Follow Effect (Enhanced Sensitivity) ===
+(function cursorBubble() {
+  const bubble = document.getElementById("cursor-bubble");
+  if (!bubble) return;
+
+  let x = window.innerWidth / 2;
+  let y = window.innerHeight / 2;
+  let targetX = x;
+  let targetY = y;
+  let vx = 0, vy = 0; // velocity for smooth easing
+  const followSpeed = 0.35; // higher = more sensitive
+  const damping = 0.7;      // spring damping (lower = bouncier)
+
+  window.addEventListener("mousemove", (e) => {
+    targetX = e.clientX;
+    targetY = e.clientY;
+    bubble.classList.add("active");
+    clearTimeout(bubble.deactivate);
+    bubble.deactivate = setTimeout(() => bubble.classList.remove("active"), 250);
+  });
+
+  function animate() {
+    const dx = targetX - x;
+    const dy = targetY - y;
+    vx += dx * followSpeed;
+    vy += dy * followSpeed;
+    vx *= damping;
+    vy *= damping;
+    x += vx;
+    y += vy;
+
+    bubble.style.transform = `translate(${x}px, ${y}px)`;
+    requestAnimationFrame(animate);
+  }
+  animate();
 })();
