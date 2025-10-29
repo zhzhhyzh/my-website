@@ -1,3 +1,9 @@
+// Performance helpers (keep these)
+const prefersReduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const isTouch = matchMedia('(hover: none)').matches;
+let pageVisible = true;
+document.addEventListener('visibilitychange', () => { pageVisible = !document.hidden; });
+
 // === Animated Background Themes (cycled) ===
 const themes = [
   { name: "Sky", gradient: "radial-gradient(circle at 30% 30%, #6ec6ff33, transparent 60%), radial-gradient(circle at 70% 70%, #80d8ff33, transparent 60%)" },
@@ -48,61 +54,76 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.12 });
 document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
 
-// Tilt on hover
-document.querySelectorAll(".tilt").forEach((card) => {
-  let rect;
-  const damp = 35;
-  function update(e) {
-    rect = rect || card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const rx = ((y - rect.height / 2) / damp);
-    const ry = -((x - rect.width / 2) / damp);
-    card.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg)`;
-  }
-  function reset() {
-    rect = null;
-    card.style.transform = "rotateX(0deg) rotateY(0deg)";
-  }
-  card.addEventListener("mousemove", update);
-  card.addEventListener("mouseleave", reset);
-});
+// Tilt on hover (desktop only)
+if (!isTouch && !prefersReduce) {
+  document.querySelectorAll(".tilt").forEach((card) => {
+    let rect;
+    const damp = 35;
 
-// Magnetic buttons
-const magnets = document.querySelectorAll(".magnet");
-magnets.forEach(el => {
-  const strength = 20;
-  let rect;
-  function move(e){
-    rect = rect || el.getBoundingClientRect();
-    const x = e.clientX - rect.left - rect.width/2;
-    const y = e.clientY - rect.top - rect.height/2;
-    el.style.transform = `translate(${x/strength}px, ${y/strength}px)`;
-  }
-  function reset(){ rect=null; el.style.transform = "translate(0,0)"; }
-  el.addEventListener("mousemove", move);
-  el.addEventListener("mouseleave", reset);
-});
+    function update(e) {
+      rect = rect || card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const rx = ((y - rect.height / 2) / damp);
+      const ry = -((x - rect.width / 2) / damp);
+      card.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg)`;
+    }
+    function reset() {
+      rect = null;
+      card.style.transform = "rotateX(0deg) rotateY(0deg)";
+    }
+    card.addEventListener("mousemove", update, { passive: true });
+    card.addEventListener("mouseleave", reset, { passive: true });
+  });
+}
+
+// Magnetic buttons (desktop only)
+if (!isTouch && !prefersReduce) {
+  const magnets = document.querySelectorAll(".magnet");
+  magnets.forEach(el => {
+    const strength = 20;
+    let rect;
+
+    function move(e){
+      rect = rect || el.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width/2;
+      const y = e.clientY - rect.top - rect.height/2;
+      el.style.transform = `translate(${x/strength}px, ${y/strength}px)`;
+    }
+    function reset(){ rect=null; el.style.transform = "translate(0,0)"; }
+
+    el.addEventListener("mousemove", move, { passive: true });
+    el.addEventListener("mouseleave", reset, { passive: true });
+  });
+}
+
 
 // iOS "liquid" orb animation with mouse attraction
 (function liquidOrb() {
+  if (prefersReduce) return;
+
   const wrapper = document.getElementById("liquid");
   if (!wrapper) return;
   const drops = Array.from(wrapper.querySelectorAll(".drop"));
-  drops.forEach((d, i) => {
+
+  drops.forEach((d) => {
     d.style.setProperty("--phase", (Math.random() * Math.PI * 2).toFixed(3));
     d.style.left = d.style.left || `${10 + Math.random() * 70}%`;
-    d.style.top = d.style.top || `${10 + Math.random() * 70}%`;
+    d.style.top  = d.style.top  || `${10 + Math.random() * 70}%`;
   });
+
   let mouse = { x: 0.5, y: 0.5, inside: false };
-  wrapper.addEventListener("pointerenter", () => (mouse.inside = true));
-  wrapper.addEventListener("pointerleave", () => (mouse.inside = false));
+  wrapper.addEventListener("pointerenter", () => (mouse.inside = true), { passive: true });
+  wrapper.addEventListener("pointerleave", () => (mouse.inside = false), { passive: true });
   wrapper.addEventListener("pointermove", (e) => {
     const rect = wrapper.getBoundingClientRect();
     mouse.x = (e.clientX - rect.left) / rect.width;
     mouse.y = (e.clientY - rect.top) / rect.height;
-  });
+  }, { passive: true });
+
   function animate() {
+    if (!pageVisible) { requestAnimationFrame(animate); return; }
+
     drops.forEach((d, i) => {
       const phase = parseFloat(getComputedStyle(d).getPropertyValue("--phase")) + 0.0025 * (i + 1);
       d.style.setProperty("--phase", phase.toString());
@@ -116,88 +137,82 @@ magnets.forEach(el => {
       d.style.left = `calc(${(targetX * 100).toFixed(2)}% - ${d.offsetWidth / 2}px)`;
       d.style.top  = `calc(${(targetY * 100).toFixed(2)}% - ${d.offsetHeight / 2}px)`;
     });
+
     requestAnimationFrame(animate);
   }
   requestAnimationFrame(animate);
 })();
 
-// Sparkles (parallax stars) on canvas
+
+// Sparkles (parallax stars) on canvas — throttled
 (function sparkles(){
+  if (prefersReduce) return;
+
   const c = document.getElementById('sparkles');
   if(!c) return;
-  const ctx = c.getContext('2d');
-  let w, h, stars;
+  const ctx = c.getContext('2d', { alpha: true });
+
+  let w, h, stars, scale, last = 0;
+
   function resize(){
-    w = c.width = window.innerWidth;
-    h = c.height = window.innerHeight;
-    stars = Array.from({length: Math.min(140, Math.floor((w*h)/18000))}, () => ({
+    const dpr = Math.min(window.devicePixelRatio || 1, 1.25); // cap res
+    scale = dpr;
+    w = Math.floor(window.innerWidth * 0.98);
+    h = Math.floor(window.innerHeight * 0.98);
+    c.width  = Math.max(1, w * scale);
+    c.height = Math.max(1, h * scale);
+    c.style.width  = w + 'px';
+    c.style.height = h + 'px';
+    ctx.setTransform(scale,0,0,scale,0,0);
+
+    const target = Math.min(90, Math.floor((w*h)/26000)); // fewer stars
+    stars = Array.from({length: target}, () => ({
       x: Math.random()*w,
       y: Math.random()*h,
       z: Math.random()*0.8 + 0.2,
-      r: Math.random()*1.2 + 0.3
+      r: Math.random()*1 + 0.25
     }));
   }
-  function draw(){
+
+  function draw(ts){
+    if (!pageVisible) { requestAnimationFrame(draw); return; }
+    if (ts - last < 40) { requestAnimationFrame(draw); return; } // ~25fps
+    last = ts;
+
     ctx.clearRect(0,0,w,h);
+    const alphaBase = 0.5 + 0.5*Math.sin(Date.now()*0.0015);
     for(const s of stars){
       const parallaxX = (window.scrollY * 0.03) * s.z;
-      ctx.globalAlpha = 0.5 + 0.5*Math.sin((s.x+s.y+Date.now()/700)*0.01);
+      ctx.globalAlpha = alphaBase;
       ctx.beginPath();
-      ctx.arc((s.x+parallaxX)%w, s.y, s.r, 0, Math.PI*2);
+      ctx.arc((s.x + parallaxX) % w, s.y, s.r, 0, Math.PI*2);
       ctx.fillStyle = "#c7d7ff";
       ctx.fill();
     }
     requestAnimationFrame(draw);
   }
-  window.addEventListener('resize', resize);
-  resize(); draw();
-})();
 
-// Scroll progress
+  window.addEventListener('resize', debounce(resize, 150), { passive: true });
+  resize();
+  requestAnimationFrame(draw);
+})();
+function debounce(fn, ms){ let t; return (...a)=>{ clearTimeout(t); t=setTimeout(()=>fn(...a), ms); }; }
+
+
+// Scroll progress (no listener leak)
 (function progress(){
   const bar = document.getElementById('scrollProgress');
-  const max = document.body.scrollHeight - window.innerHeight;
+  if (!bar) return;
+
+  function updateMax(){ max = Math.max(1, document.body.scrollHeight - window.innerHeight); }
+  let max = 1;
+
   function update(){ bar.style.width = `${(window.scrollY / max) * 100}%`; }
-  window.addEventListener('scroll', update, {passive:true});
-  window.addEventListener('resize', progress);
-  update();
-})();
 
-// === Cursor Bubble Follow Effect (Enhanced Sensitivity) ===
-(function cursorBubble() {
-  const bubble = document.getElementById("cursor-bubble");
-  if (!bubble) return;
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', () => { updateMax(); update(); }, { passive: true });
 
-  let x = window.innerWidth / 2;
-  let y = window.innerHeight / 2;
-  let targetX = x;
-  let targetY = y;
-  let vx = 0, vy = 0; // velocity for smooth easing
-  const followSpeed = 0.35; // higher = more sensitive
-  const damping = 0.7;      // spring damping (lower = bouncier)
-
-  window.addEventListener("mousemove", (e) => {
-    targetX = e.clientX;
-    targetY = e.clientY;
-    bubble.classList.add("active");
-    clearTimeout(bubble.deactivate);
-    bubble.deactivate = setTimeout(() => bubble.classList.remove("active"), 250);
-  });
-
-  function animate() {
-    const dx = targetX - x;
-    const dy = targetY - y;
-    vx += dx * followSpeed;
-    vy += dy * followSpeed;
-    vx *= damping;
-    vy *= damping;
-    x += vx;
-    y += vy;
-
-    bubble.style.transform = `translate(${x}px, ${y}px)`;
-    requestAnimationFrame(animate);
-  }
-  animate();
+  updateMax(); update();
 })();
 
 // === Mobile menu open/close ===
