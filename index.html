@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Zhe Heng | Software Engineer</title>
-  <meta name="description"
-    content="Zhe Heng — Full‑Stack Software Engineer. Projects, skills, experience, and contact." />
+  <meta name="description" content="Zhe Heng — Full‑Stack Software Engineer. Projects, skills, experience, GitHub stats, and contact." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
@@ -15,15 +13,21 @@
 </head>
 
 <body>
+  <!-- Scroll progress -->
+  <div id="scrollProgress" aria-hidden="true"></div>
+
   <!-- Dynamic gradient background -->
   <div id="background" aria-hidden="true"></div>
+  <!-- Sparkles layer -->
+  <canvas id="sparkles" aria-hidden="true"></canvas>
+  <!-- Film grain -->
+  <div id="grain" aria-hidden="true"></div>
 
   <!-- SVG filter for iOS "liquid/gooey" effect -->
   <svg class="visually-hidden">
     <defs>
       <filter id="goo">
         <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
-        <!-- Lift alpha to create the liquid merge look -->
         <feColorMatrix in="blur" mode="matrix" values="
           1 0 0 0 0
           0 1 0 0 0
@@ -37,37 +41,57 @@
   <!-- Header / Hero -->
   <header class="glass-header container">
     <nav class="topnav">
-      <a href="#about">About</a>
-      <a href="#skills">Skills</a>
-      <a href="#projects">Projects</a>
-      <a href="#experience">Experience</a>
-      <a href="#education">Education</a>
-      <a href="#contact">Contact</a>
-      <button id="themeToggle" aria-label="Toggle theme">🌓</button>
+      <div class="brand">ZH<span>.</span></div>
+      <div class="links">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#experience">Experience</a>
+        <a href="#github">GitHub</a>
+        <a href="#education">Education</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="actions">
+        <a class="button ghost magnet" href="https://github.com/zhzhhyzh" target="_blank">GitHub</a>
+        <a class="button primary magnet" href="https://drive.google.com/file/d/1_YpoFNdwLFKetnLy71RLVpf7CDVjwgjb/view?usp=sharing" target="_blank">Resume</a>
+        <button id="themeToggle" class="magnet" aria-label="Toggle theme">🌓</button>
+      </div>
     </nav>
 
     <div class="hero">
       <div class="hero-text tilt">
-        <h1>👋 Hi, I'm <span>Zhe Heng</span></h1>
-        <p>🚀 Aspiring Software Engineer | Full‑Stack Developer | AI & Cloud Enthusiast</p>
+        <h1>Hi, I'm <span>Zhe Heng</span> 👋</h1>
+        <p>💻 Aspiring Software Engineer | Full‑Stack Developer | AI & Cloud Enthusiast</p>
+        <ul class="bullets">
+          <li>🔭 Currently building <strong>Java Spring Boot</strong> backend projects</li>
+          <li>💬 Ask me about <strong>React</strong>, <strong>Node.js</strong>, <strong>AWS deployment</strong>, and <strong>web architecture</strong></li>
+          <li>👨‍💻 Explore my work: <a href="https://github.com/zhzhhyzh" target="_blank">github.com/zhzhhyzh</a></li>
+        </ul>
         <div class="cta">
-          <a href="mailto:henryyzh0309@gmail.com" class="button primary">📩 Contact Me</a>
-          <a href="https://drive.google.com/file/d/1_YpoFNdwLFKetnLy71RLVpf7CDVjwgjb/view?usp=sharing" target="_blank"
-            class="button">📄 View Resume</a>
+          <a href="mailto:henryyzh0309@gmail.com" class="button primary magnet">📩 Contact Me</a>
+          <a href="#github" class="button ghost magnet">📊 View GitHub</a>
         </div>
       </div>
 
-      <!-- iOS-style liquid orb -->
+      <!-- iOS-style liquid orb (upgraded) -->
       <div class="liquid-orb tilt" aria-hidden="true">
         <div class="liquid" id="liquid" filter-content="goo">
-          <!-- Drops are animated in JS -->
           <div class="drop"></div>
           <div class="drop"></div>
           <div class="drop"></div>
           <div class="drop"></div>
           <div class="drop"></div>
+          <!-- Halo shine -->
+          <div class="halo"></div>
         </div>
       </div>
+    </div>
+
+    <!-- Fancy divider -->
+    <div class="divider" aria-hidden="true">
+      <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+        <path d="M0,0 C300,100 900,0 1200,100 L1200,0 L0,0 Z"></path>
+      </svg>
     </div>
   </header>
 
@@ -75,22 +99,33 @@
   <section id="about" class="glass-card container reveal">
     <h2>🧠 About Me</h2>
     <p>
-      I’m a Software Engineering student at TARUMT and a passionate Full‑Stack Developer with hands‑on experience in
-      <strong>Node.js, React.js, Spring Boot, and AWS</strong>. I love building scalable backend systems and
-      user‑friendly
-      interfaces.
+      I’m an aspiring <strong>Software Engineer</strong> pursuing a <strong>Bachelor of Software Engineering (Hons)</strong> at <strong>TARUMT</strong>.
+      I build efficient, scalable, and user‑centric applications with <strong>Node.js</strong>, <strong>React.js</strong>, <strong>Spring Boot</strong>, <strong>MySQL</strong>, and <strong>MongoDB</strong>,
+      and I deploy with <strong>AWS</strong>. I enjoy solving problems and exploring <strong>AI‑driven development</strong>.
     </p>
+    <blockquote class="focus">“Building scalable backend systems and crafting intuitive user experiences with full‑stack technologies.”</blockquote>
+    <ul class="chips">
+      <li>Based in Kuala Lumpur</li>
+      <li>Open to Internships & Freelance</li>
+      <li>AWS, Docker, PM2, Git</li>
+    </ul>
   </section>
 
   <!-- Skills -->
   <section id="skills" class="glass-card container reveal">
     <h2>🛠️ Skills & Tools</h2>
     <div class="skills-grid">
-      <span>Java</span><span>Spring Boot</span><span>Node.js</span><span>React</span>
-      <span>MySQL</span><span>MongoDB</span><span>AWS</span><span>Docker</span>
-      <span>Python</span><span>Scikit‑learn</span><span>Git</span><span>Flutter</span>
+      <span>Java</span><span>Spring Boot</span><span>JavaScript</span><span>TypeScript</span>
+      <span>Node.js</span><span>Express.js</span><span>React</span><span>Flutter</span>
+      <span>Python</span><span>C++</span><span>MySQL</span><span>MongoDB</span>
+      <span>AWS (EC2, RDS, S3)</span><span>Docker</span><span>PM2</span><span>Git/GitHub/GitLab</span>
+      <span>Pandas</span><span>Scikit‑learn</span><span>Time‑Series</span><span>RL (PPO/Q‑learning)</span>
+      <span>Postman</span><span>Figma</span><span>VS Code</span><span>IntelliJ</span>
     </div>
-    <div class="skill-notes">Clean architecture • REST/JSON • CI/CD • Cloud basics (S3/EC2) • Unit & Integration Tests
+    <div class="skill-notes">Clean architecture • REST/JSON • CI/CD • Testing • Cloud deployments</div>
+
+    <div class="icon-wall">
+      <img src="https://skillicons.dev/icons?i=java,spring,react,nodejs,express,typescript,js,html,py,cpp,mysql,mongodb,aws,docker,git,postman,figma,flutter,scikitlearn,pandas&perline=10" alt="Skill icons" loading="lazy"/>
     </div>
   </section>
 
@@ -100,17 +135,17 @@
     <div class="projects-grid">
       <article class="project tilt">
         <h3>StallSync — Canteen Management</h3>
-        <p>Full‑stack system (React + Node + MySQL) with modules for orders, inventory, rewards, and analytics.</p>
+        <p>Full‑stack system (React + Node + MySQL) with orders, inventory, rewards, and analytics modules.</p>
         <div class="tags"><span>React</span><span>Node.js</span><span>MySQL</span></div>
       </article>
       <article class="project tilt">
-        <h3>Invento - Inventory Management System</h3>
-        <p>Full‑stack system (Springboot + React + MySQL) with modules for transactions, users, products, and more</p>
-        <div class="tags"><span>SpringBoot</span><span>React</span></div>
+        <h3>Invento — Inventory Management</h3>
+        <p>Spring Boot + React app with transaction, user, and product modules.</p>
+        <div class="tags"><span>Spring Boot</span><span>React</span></div>
       </article>
       <article class="project tilt">
-        <h3>Machine Learning (RL, Forecast, recommendation)</h3>
-        <p>Machine Learning features with Python backend, deployed to AWS using PM2.</p>
+        <h3>ML Toolkit</h3>
+        <p>Python services for RL (PPO/Q‑learning) and time‑series forecasting, deployed on AWS using PM2.</p>
         <div class="tags"><span>Python</span><span>RL</span><span>AWS</span></div>
       </article>
     </div>
@@ -122,86 +157,91 @@
     <div class="timeline">
       <div class="job">
         <h3>Full‑Stack Developer | 33Digitec Solution</h3>
-        <p>Mar 2023 – Mar 2025 | Petaling Jaya, KL</p>
+        <p>📍 Petaling Jaya, Kuala Lumpur | 🗓️ Mar 2023 – Mar 2025</p>
         <ul>
-          <li>Developed RESTful APIs using Node.js and Express.</li>
-          <li>Built React.js frontends with reusable components.</li>
-          <li>Used Git for version control and PM2 for process management.</li>
+          <li>Developed RESTful APIs using Node.js and Express; clean, modular architecture.</li>
+          <li>Built responsive and reusable React components aligned to user & business requirements.</li>
+          <li>Collaborated in agile teams using Git; used PM2 for process management and load balancing.</li>
         </ul>
       </div>
       <div class="job">
         <h3>Project Developer | Persis (Remote)</h3>
-        <p>Mar 2025 – Sep 2025</p>
+        <p>🗓️ Mar 2025 – Sep 2025</p>
         <ul>
-          <li>Developed Persis App using Reinforcement Learning (Python + Node.js).</li>
-          <li>Deployed on AWS with PM2, managed via Git.</li>
+          <li>Built Persis App leveraging RL for personalized analytics (Node.js backend + Python AI + Flutter front‑end).</li>
+          <li>Deployed on AWS EC2 with PM2 and Git‑based workflows.</li>
         </ul>
       </div>
     </div>
   </section>
 
-  <!-- Education & Certs -->
+  <!-- GitHub -->
+  <section id="github" class="glass-card container reveal">
+    <h2>📊 GitHub Highlights</h2>
+    <div class="github-grid">
+      <a href="https://github.com/ryo-ma/github-profile-trophy" target="_blank" class="gitcard tilt">
+        <img src="https://github-profile-trophy.vercel.app/?username=zhzhhyzh&theme=tokyonight&margin-w=10&margin-h=10&no-bg=true&no-frame=true" alt="GitHub Trophies" loading="lazy"/>
+      </a>
+      <div class="gitcard tilt">
+        <img src="https://github-readme-stats.vercel.app/api?username=zhzhhyzh&show_icons=true&theme=tokyonight&hide_border=true" alt="GitHub Stats" loading="lazy"/>
+      </div>
+      <div class="gitcard tilt">
+        <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=zhzhhyzh&layout=compact&theme=tokyonight&hide_border=true" alt="Top Languages" loading="lazy"/>
+      </div>
+      <div class="gitcard tilt">
+        <img src="https://github-readme-streak-stats.herokuapp.com/?user=zhzhhyzh" alt="GitHub Streak" loading="lazy"/>
+      </div>
+    </div>
+  </section>
+
+  <!-- Education, Certifications, Languages -->
   <section id="education" class="glass-card container reveal">
-    <h2>🎓 Education & Certifications</h2>
+    <h2>🎓 Education, Certifications & Languages</h2>
     <div class="two-col">
       <div>
         <h3>Tunku Abdul Rahman University of Management & Technology (TARUMT)</h3>
-        <p>Bachelor of Computer Science (Software Engineering)</p>
+        <p><strong>BCs of Software Engineering (Hons)</strong> (2023 – 2026) — CGPA: 3.97</p>
         <ul>
-          <li>President’s List (×5)</li>
+          <li>President’s List ×5 (May 2023, Jan 2024, May 2024, Sept 2024, Jan 2025)</li>
           <li>Soft Skill Competency Gold Award</li>
+          <li>Intro to Blockchain · Intro to AI · OOP</li>
         </ul>
       </div>
       <div>
         <h3>Certifications</h3>
         <ul>
-          <li>AWS Cloud Beginner</li>
-          <li>Foundation in Computing</li>
+          <li>AWS Cloud (Beginner/Practitioner track)</li>
+          <li>Foundation in Computing — CGPA: 3.81</li>
+        </ul>
+        <h3>Languages</h3>
+        <ul class="chips">
+          <li>Mandarin — Native</li>
+          <li>English — Proficient</li>
+          <li>Malay — Independent</li>
         </ul>
       </div>
     </div>
   </section>
 
-  <!-- Services -->
-  <section id="services" class="glass-card container reveal">
-    <h2>🧰 What I Do</h2>
-    <div class="services-grid">
-      <div class="service tilt">
-        <h3>Full‑Stack Apps</h3>
-        <p>Design & build RESTful backends, component‑based frontends, and SQL/NoSQL data layers.</p>
-      </div>
-      <div class="service tilt">
-        <h3>APIs & Integrations</h3>
-        <p>Auth, webhooks, 3rd‑party SDKs, and robust error handling with logging & metrics.</p>
-      </div>
-      <div class="service tilt">
-        <h3>Cloud & DevOps</h3>
-        <p>Containerization, basic CI/CD, and cloud deployments with sensible monitoring.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Achievements -->
+  <!-- Awards -->
   <section id="achievements" class="glass-card container reveal">
-    <h2>🏆 Achievements</h2>
+    <h2>🏅 Awards & Achievements</h2>
     <ul class="achievements-list">
-      <li>🎓 TARUMT Bachelor’s Scholarship Recipient</li>
-      <li>🏅 President’s List (×5)</li>
-      <li>🥇 Soft Skill Competency Gold Award</li>
-      <li>🌏 Hackathon & Student Exchange Participant (Vietnam, China, U.S.)</li>
+      <li>🎓 TARUMT Bachelor’s Degree Scholarship Recipient</li>
+      <li>🏆 President’s List (×5)</li>
+      <li>🥇 Soft Skills Competency Gold Award</li>
+      <li>🌏 Hackathon & Student Exchange (Vietnam, China, U.S.)</li>
     </ul>
   </section>
+
 
   <!-- Contact -->
   <footer id="contact" class="glass-footer container reveal">
     <h2>🤝 Connect with Me</h2>
     <div class="socials">
-      <a href="https://github.com/zhzhhyzh" target="_blank" aria-label="GitHub"><img src="assets/icons/github.svg"
-          alt="GitHub"></a>
-      <a href="https://linkedin.com/in/zhzhhyzh" target="_blank" aria-label="LinkedIn"><img
-          src="assets/icons/linkedin.svg" alt="LinkedIn"></a>
-      <a href="https://leetcode.com/zhzhhyzh" target="_blank" aria-label="LeetCode"><img src="assets/icons/leetcode.svg"
-          alt="LeetCode"></a>
+      <a href="https://github.com/zhzhhyzh" target="_blank" aria-label="GitHub"><img src="assets/icons/github.svg" alt="GitHub"></a>
+      <a href="https://linkedin.com/in/zhzhhyzh" target="_blank" aria-label="LinkedIn"><img src="assets/icons/linkedin.svg" alt="LinkedIn"></a>
+      <a href="https://leetcode.com/zhzhhyzh" target="_blank" aria-label="LeetCode"><img src="assets/icons/leetcode.svg" alt="LeetCode"></a>
       <a href="mailto:henryyzh0309@gmail.com" aria-label="Email"><img src="assets/icons/email.svg" alt="Email"></a>
     </div>
 
@@ -209,10 +249,9 @@
       <input name="name" placeholder="Your name" required />
       <input name="email" type="email" placeholder="Your email" required />
       <textarea name="message" placeholder="Say hello 👋" rows="4" required></textarea>
-      <button class="button primary" type="submit">Send</button>
+      <button class="button primary magnet" type="submit">Send</button>
     </form>
-    <p class="copyright">© <span id="year"></span> Zhe Heng — Built with Liquid Glass Design</p>
+    <p class="copyright">© <span id="year"></span> Zhe Heng — Built with Liquid Glass & Sparkle Motion</p>
   </footer>
 </body>
-
 </html>
