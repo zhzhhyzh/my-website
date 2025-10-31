@@ -84,13 +84,13 @@ if (!isTouch && !prefersReduce) {
     const strength = 20;
     let rect;
 
-    function move(e){
+    function move(e) {
       rect = rect || el.getBoundingClientRect();
-      const x = e.clientX - rect.left - rect.width/2;
-      const y = e.clientY - rect.top - rect.height/2;
-      el.style.transform = `translate(${x/strength}px, ${y/strength}px)`;
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+      el.style.transform = `translate(${x / strength}px, ${y / strength}px)`;
     }
-    function reset(){ rect=null; el.style.transform = "translate(0,0)"; }
+    function reset() { rect = null; el.style.transform = "translate(0,0)"; }
 
     el.addEventListener("mousemove", move, { passive: true });
     el.addEventListener("mouseleave", reset, { passive: true });
@@ -109,7 +109,7 @@ if (!isTouch && !prefersReduce) {
   drops.forEach((d) => {
     d.style.setProperty("--phase", (Math.random() * Math.PI * 2).toFixed(3));
     d.style.left = d.style.left || `${10 + Math.random() * 70}%`;
-    d.style.top  = d.style.top  || `${10 + Math.random() * 70}%`;
+    d.style.top = d.style.top || `${10 + Math.random() * 70}%`;
   });
 
   let mouse = { x: 0.5, y: 0.5, inside: false };
@@ -135,7 +135,7 @@ if (!isTouch && !prefersReduce) {
         targetY = baseY * 0.75 + mouse.y * 0.25;
       }
       d.style.left = `calc(${(targetX * 100).toFixed(2)}% - ${d.offsetWidth / 2}px)`;
-      d.style.top  = `calc(${(targetY * 100).toFixed(2)}% - ${d.offsetHeight / 2}px)`;
+      d.style.top = `calc(${(targetY * 100).toFixed(2)}% - ${d.offsetHeight / 2}px)`;
     });
 
     requestAnimationFrame(animate);
@@ -145,47 +145,47 @@ if (!isTouch && !prefersReduce) {
 
 
 // Sparkles (parallax stars) on canvas — throttled
-(function sparkles(){
+(function sparkles() {
   if (prefersReduce) return;
 
   const c = document.getElementById('sparkles');
-  if(!c) return;
+  if (!c) return;
   const ctx = c.getContext('2d', { alpha: true });
 
   let w, h, stars, scale, last = 0;
 
-  function resize(){
+  function resize() {
     const dpr = Math.min(window.devicePixelRatio || 1, 1.25); // cap res
     scale = dpr;
     w = Math.floor(window.innerWidth * 0.98);
     h = Math.floor(window.innerHeight * 0.98);
-    c.width  = Math.max(1, w * scale);
+    c.width = Math.max(1, w * scale);
     c.height = Math.max(1, h * scale);
-    c.style.width  = w + 'px';
+    c.style.width = w + 'px';
     c.style.height = h + 'px';
-    ctx.setTransform(scale,0,0,scale,0,0);
+    ctx.setTransform(scale, 0, 0, scale, 0, 0);
 
-    const target = Math.min(90, Math.floor((w*h)/26000)); // fewer stars
-    stars = Array.from({length: target}, () => ({
-      x: Math.random()*w,
-      y: Math.random()*h,
-      z: Math.random()*0.8 + 0.2,
-      r: Math.random()*1 + 0.25
+    const target = Math.min(90, Math.floor((w * h) / 26000)); // fewer stars
+    stars = Array.from({ length: target }, () => ({
+      x: Math.random() * w,
+      y: Math.random() * h,
+      z: Math.random() * 0.8 + 0.2,
+      r: Math.random() * 1 + 0.25
     }));
   }
 
-  function draw(ts){
+  function draw(ts) {
     if (!pageVisible) { requestAnimationFrame(draw); return; }
     if (ts - last < 40) { requestAnimationFrame(draw); return; } // ~25fps
     last = ts;
 
-    ctx.clearRect(0,0,w,h);
-    const alphaBase = 0.5 + 0.5*Math.sin(Date.now()*0.0015);
-    for(const s of stars){
+    ctx.clearRect(0, 0, w, h);
+    const alphaBase = 0.5 + 0.5 * Math.sin(Date.now() * 0.0015);
+    for (const s of stars) {
       const parallaxX = (window.scrollY * 0.03) * s.z;
       ctx.globalAlpha = alphaBase;
       ctx.beginPath();
-      ctx.arc((s.x + parallaxX) % w, s.y, s.r, 0, Math.PI*2);
+      ctx.arc((s.x + parallaxX) % w, s.y, s.r, 0, Math.PI * 2);
       ctx.fillStyle = "#c7d7ff";
       ctx.fill();
     }
@@ -196,18 +196,18 @@ if (!isTouch && !prefersReduce) {
   resize();
   requestAnimationFrame(draw);
 })();
-function debounce(fn, ms){ let t; return (...a)=>{ clearTimeout(t); t=setTimeout(()=>fn(...a), ms); }; }
+function debounce(fn, ms) { let t; return (...a) => { clearTimeout(t); t = setTimeout(() => fn(...a), ms); }; }
 
 
 // Scroll progress (no listener leak)
-(function progress(){
+(function progress() {
   const bar = document.getElementById('scrollProgress');
   if (!bar) return;
 
-  function updateMax(){ max = Math.max(1, document.body.scrollHeight - window.innerHeight); }
+  function updateMax() { max = Math.max(1, document.body.scrollHeight - window.innerHeight); }
   let max = 1;
 
-  function update(){ bar.style.width = `${(window.scrollY / max) * 100}%`; }
+  function update() { bar.style.width = `${(window.scrollY / max) * 100}%`; }
 
   window.addEventListener('scroll', update, { passive: true });
   window.addEventListener('resize', () => { updateMax(); update(); }, { passive: true });
@@ -216,13 +216,13 @@ function debounce(fn, ms){ let t; return (...a)=>{ clearTimeout(t); t=setTimeout
 })();
 
 // === Mobile menu open/close ===
-(function mobileMenu(){
+(function mobileMenu() {
   const menu = document.getElementById('mobileMenu');
   const scrim = document.getElementById('scrim');
   const btnOpen = document.getElementById('menuToggle');
   const btnClose = document.getElementById('menuClose');
 
-  if(!menu || !btnOpen || !scrim) return;
+  if (!menu || !btnOpen || !scrim) return;
 
   function open() {
     menu.dataset.open = "true";
@@ -242,12 +242,12 @@ function debounce(fn, ms){ let t; return (...a)=>{ clearTimeout(t); t=setTimeout
   scrim.addEventListener('click', close);
 
   // close when a link is tapped
-  menu.querySelectorAll('a[href^="#"], a[target="_blank"]').forEach(a=>{
+  menu.querySelectorAll('a[href^="#"], a[target="_blank"]').forEach(a => {
     a.addEventListener('click', close);
   });
 
   // close with Escape
-  window.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') close(); });
+  window.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
 })();
 
 
@@ -274,3 +274,73 @@ function debounce(fn, ms){ let t; return (...a)=>{ clearTimeout(t); t=setTimeout
     if (e.matches) closeMenu();
   });
 })();
+
+// Grab modal elements
+const modal = document.getElementById("projectModal");
+const modalTitle = document.getElementById("modalTitle");
+const modalLinks = document.getElementById("modalLinks");
+const closeBtn = document.getElementById("modalClose"); // updated selector ✅
+
+// Define project links
+const projectLinks = {
+  stallsync: [
+    { name: "Backend Repo.", url: "https://github.com/zhzhhyzh/StallSync-api" },
+    { name: "Frontend (Website, Admin) Repo.", url: "https://github.com/zhzhhyzh/stallsync-portal" },
+    { name: "Frontend (Mobile, Client) Repo", url: "https://github.com/WwwWKit/Stallsync-native" },
+    { name: "Testing Script", url: "https://github.com/zhzhhyzh/StallSync-testscript" }
+  ],
+  invento: [
+    { name: "Backend Repo.", url: "https://github.com/zhzhhyzh/invento-api" },
+    { name: "Frontend Repo.", url: "https://github.com/zhzhhyzh/invento-portal" }
+  ],
+  mltoolkit: [
+    { name: "Time-series Algorithm (ARIMA)", url: "https://github.com/zhzhhyzh/Time-series-algorithm" },
+    { name: "Collaborative Recommendation", url: "https://github.com/zhzhhyzh/StallSync-Recommendation" },
+    { name: "Backend for Reinforcement Learning", url: "https://github.com/zhzhhyzh/PERSIS-api" },
+    { name: "Chatbot", url: "https://github.com/zhzhhyzh/ChatterBot" }
+  ],
+  opengl: [
+    { name: "Poseidon", url: "https://github.com/zhzhhyzh/opengl_poseidon" },
+    { name: "London Bridge", url: "https://github.com/zhzhhyzh/opengl-bridge" }
+  ],
+  mobileapp: [
+    { name: "Network Connection App.", url: "https://github.com/zhzhhyzh/velora-flutter" },
+    { name: "Inventory App.", url: "https://github.com/zhzhhyzh/flutter-inventory-app" }
+  ],
+  blockchain: [
+    { name: "Timelock Fund Transfer", url: "https://github.com/zhzhhyzh/Timelock-Solidity" }
+  ],
+};
+
+// Handle "View Project" clicks
+document.querySelectorAll(".view-btn").forEach(btn => {
+  btn.addEventListener("click", e => {
+    e.preventDefault();
+    const project = btn.dataset.project;
+    const links = projectLinks[project] || [];
+
+    // Set modal title safely
+    const parentCard = btn.closest(".project");
+    modalTitle.textContent = parentCard ? parentCard.querySelector("h3").textContent : "Select a link";
+
+    // Populate modal with links
+    modalLinks.innerHTML = links
+      .map(link => `<a href="${link.url}" target="_blank">${link.name}</a>`)
+      .join("");
+
+    // Show modal
+    modal.style.display = "block";
+  });
+});
+
+// ✅ Close button click
+closeBtn.addEventListener("click", () => {
+  modal.style.display = "none";
+});
+
+// ✅ Click outside modal content to close
+window.addEventListener("click", e => {
+  if (e.target === modal) {
+    modal.style.display = "none";
+  }
+});

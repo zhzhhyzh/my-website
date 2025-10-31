@@ -310,3 +310,90 @@ body.menu-open{overflow:hidden;}
 @media (prefers-reduced-motion: reduce){
   .glass-card,.glass-header,.glass-footer{backdrop-filter:none;background-color:rgba(255,255,255,0.06);}
 }
+
+
+.ios-btn {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.7rem 1.4rem;
+  background: linear-gradient(180deg, #007aff, #005ecb);
+  color: #fff;
+  font-weight: 500;
+  font-size: 0.95rem;
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 122, 255, 0.4);
+  text-decoration: none;
+  transition: all 0.25s ease;
+  backdrop-filter: blur(8px);
+}
+
+.ios-btn:hover {
+  background: linear-gradient(180deg, #3395ff, #007aff);
+  box-shadow: 0 4px 12px rgba(0, 122, 255, 0.5);
+  transform: translateY(-2px);
+}
+
+.ios-btn:active {
+  transform: scale(0.97);
+  box-shadow: 0 2px 6px rgba(0, 122, 255, 0.3);
+}
+
+/* Modal background */
+.modal {
+  display: none; 
+  position: fixed;
+  z-index: 9999;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(6px);
+}
+
+/* Modal box */
+.modal-content {
+  margin: 12% auto;
+  padding: 30px;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+  border-radius: 20px;
+  animation: popIn 0.3s ease;
+}
+
+/* Close button */
+.close {
+  position: absolute;
+  top: 10px;
+  right: 16px;
+  font-size: 28px;
+  cursor: pointer;
+  color: #007aff;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+.close:hover {
+  transform: scale(1.15);
+  opacity: 0.8;
+}
+
+
+.modal a {
+  display: block;
+  margin: 10px 0;
+  padding: 12px;
+  border-radius: 12px;
+  text-decoration: none;
+  background: #007aff;
+  color: white;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.modal a:hover {
+  background: #005ecb;
+}
+
+@keyframes popIn {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
